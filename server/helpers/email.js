@@ -40,7 +40,7 @@ exports.forgotPasswordEmailParams = (email, token) => {
             Data: `
             <html>
               <h1>Reset Password Link</h1>
-              <p>Please use the following link to complete your registration</p>
+              <p>Please use the following link to reset your password</p>
               <p>${process.env.CLIENT_URL}/auth/password-reset/${token}</p>
               </html>
               `,
@@ -48,7 +48,7 @@ exports.forgotPasswordEmailParams = (email, token) => {
         },
         Subject: {
           Charset: "UTF-8",
-          Data: "Complete your registration",
+          Data: "Reset your password",
         },
       },
     };
