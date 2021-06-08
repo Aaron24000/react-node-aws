@@ -86,6 +86,9 @@ exports.create = (req, res) => {
         category.image.url = data.Location;
         category.image.key = data.Key;
 
+        // posted by
+        category.postedBy = req.user._id;
+
         //save to database
         category.save((err, success) => {
             if(err) res.status(400).json({
