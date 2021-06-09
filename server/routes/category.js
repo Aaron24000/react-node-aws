@@ -3,7 +3,7 @@ const router = express.Router();
 
 // validators
 const { categoryCreateValidator, categoryUpdateValidator } = require('../validators/category');
-const { runValidation } = require('../validators/');
+const { runValidation } = require('../validators/index');
 
 // import from controllers
 const { requireSignin, adminMiddleware, authMiddleware } = require('../controllers/auth');

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
 const linkSchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         trim: true,
         required: true,
@@ -17,17 +17,20 @@ const linkSchema = new mongoose.Schema({
     slug: {
         type: String,
         lowercase: true,
-        required: true
+        required: true,
+        index: true
     },
     postedBy: {
         type: ObjectId,
         ref: 'User'
     },
-    categories: [{
-        type: ObjectId,
-        ref: 'Category',
-        required: true
-    }],
+    categories: [
+        {
+            type: ObjectId,
+            ref: 'Category',
+            required: true
+        }
+    ],
     type: {
         type: String,
         default: 'Free'
