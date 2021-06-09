@@ -26,7 +26,14 @@ exports.create = (req, res) => {
 }
 
 exports.list = (req, res) => {
-    //
+    Link.find({}).exec((err, data) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'Could not list links'
+            });
+        }
+        res.json(data);
+    })
 }
 
 exports.read = (req, res) => {
