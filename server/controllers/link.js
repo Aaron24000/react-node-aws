@@ -10,9 +10,6 @@ exports.create = (req, res) => {
     let link = new Link({ title, url, categories, type, medium, slug});
     // posted by user
     link.postedBy = req.user._id;
-    // categories
-    let arrayOfCategories = categories && categories.split(','); // split on each comma in the categories. Can be one category or many
-    link.categories = arrayOfCategories;
     // save link
     link.save((err, data) => {
         if (err) {
