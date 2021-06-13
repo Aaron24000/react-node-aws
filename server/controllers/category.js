@@ -143,9 +143,81 @@ exports.read = (req, res) => {
 };
 
 exports.update = (req, res) => {
-    //
+    const {slug} = req.params;
+    const {name, image, content} = req.body;
+
+    Category.findOneAndUpdate({slug}, {name, content}, {new: true}).exec((err, updated)  => {
+        if (err) {
+            return res.status(400).json({
+                error: 'Could not find category to update'
+            });
+        }
+        console.log('UPDATED', updated);
+        if(image) {
+            // remove the current image from S3 before uploading the new one
+            const deleteParams = {
+                Bucket: 'hackr-sirnobles',
+                Key: `category/${updated.image.key}`,
+            };
+        
+            s3.deleteObject(deleteParams, function(err, data)  {
+                if (err) console.log('s3 delete error during update', err);
+                else console.log('S3 deleted during update', data);
+            });
+
+            // handle upload image
+            const params = {
+                Bucket: 'hackr-sirnobles',
+                Key: `category/${uuidv4()}.${type}`,
+                Body: base64Data,
+                ACL: 'public-read',
+                ContentEncoding: 'base64',
+                ContentType: `image/${type}`
+            }
+
+            s3.upload(params, (err, data) => {
+                if(err) res.status(400).json({
+                    error: 'Upload to S3 failed'
+                })
+                console.log('AWS UPLOAD RES DATA', data);
+                updated.image.url = data.Location;
+                updated.image.key = data.Key;
+        
+                //save to database
+                updated.save((err, success) => {
+                    if(err) res.status(400).json({
+                        error: 'Duplicate category'
+                    })
+                    res.json(success);
+                })
+            });
+        } else {
+            res.json(updated);
+        }
+    })
 };
 
 exports.remove = (req, res) => {
-    //
+    const {slug} = req.params;
+
+    Category.findByIdAndRemove({slug}).exec((err, data) => {
+        if(err) {
+            return res.status(400).json({
+                error: 'Could not delete category'
+            })
+        }
+        const deleteParams = {
+            Bucket: 'hackr-sirnobles',
+            Key: `category/${data.image.key}`,
+        };
+    
+        s3.deleteObject(deleteParams, function(err, data)  {
+            if (err) console.log('s3 delete error', err);
+            else console.log('S3 deleted', data);
+        });
+
+        res.json({
+            message: 'Category deleted successfully'
+        })
+    })
 };
