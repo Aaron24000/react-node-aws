@@ -157,7 +157,7 @@ exports.update = (req, res) => {
             // remove the current image from S3 before uploading the new one
             const deleteParams = {
                 Bucket: 'hackr-sirnobles',
-                Key: `category/${updated.image.key}`,
+                Key: `${updated.image.key}`,
             };
         
             s3.deleteObject(deleteParams, function(err, data)  {
@@ -208,7 +208,7 @@ exports.remove = (req, res) => {
         }
         const deleteParams = {
             Bucket: 'hackr-sirnobles',
-            Key: `category/${data.image.key}`,
+            Key: `${data.image.key}`,
         };
     
         s3.deleteObject(deleteParams, function(err, data)  {
