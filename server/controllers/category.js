@@ -200,8 +200,8 @@ exports.update = (req, res) => {
 exports.remove = (req, res) => {
     const {slug} = req.params;
 
-    Category.findByIdAndRemove({slug}).exec((err, data) => {
-        if(err) {
+    Category.findOneAndRemove({slug}).exec((err, data) => {
+        if (err) {
             return res.status(400).json({
                 error: 'Could not delete category'
             })
