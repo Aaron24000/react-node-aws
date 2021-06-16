@@ -14,7 +14,7 @@ router.post('/link', linkCreateValidator, runValidation, requireSignin, authMidd
 router.get('/links', list);
 router.put('/click-count', clickCount);
 router.get('/link/:slug', read);
-router.put('/link/:slug', linkUpdateValidator, runValidation, requireSignin, authMiddleware, update);
+router.put('/link/:id', linkUpdateValidator, runValidation, requireSignin, authMiddleware, update);
 router.delete('/link/:id', requireSignin, authMiddleware, remove);
 
 module.exports = router;
