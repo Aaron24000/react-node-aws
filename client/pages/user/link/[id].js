@@ -4,20 +4,7 @@ import axios from 'axios';
 import {API} from '../../../config';
 import { showErrorMessage, showSuccessMessage } from '../../../helpers/alert';
 import { getCookie, isAuth } from '../../../helpers/auth';
-
-/*
-handle change title
-handle change url
-handle change type
-handle change medium
-handle submit > post request to server
-show categories > checkbox
-show types > radio buttons
-show medium > radio buttons
-handle toggle > selecting categories
-return > show create forms, categories checkbox, radio buttons, success/error messages etc
-get token of the logged in user - required to create link
- */
+import withUser from '../../withUser';
 
 const Update = ({token}) => {
     // state
@@ -201,7 +188,7 @@ const Update = ({token}) => {
       <Layout>
         <div className="row">
           <div className="col-md-12">
-            <h1>Submit Link/URL</h1>
+            <h1>Update Link/URL</h1>
             <br />
           </div>
           <div className="col-md-4">
@@ -230,9 +217,9 @@ const Update = ({token}) => {
     );
 };
 
-Create.getInitialProps = ({req}) => {
-    const token = getCookie('token', req);
-    return { token }
+Update.getInitialProps = ({req, token, query}) => {
+    const response = await axios.post(`${API}/category/${query.id}`);
+    return { oldLink: response.data.link, token};
 }
 
-export default Update;
+export default withUser(Update);
