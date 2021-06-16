@@ -1,12 +1,11 @@
 import Layout from "../../components/Layout";
 import axios from "axios";
 import { API } from "../../config";
-import Router from 'next/router';
 import { getCookie } from "../../helpers/auth";
 import Link from "next/link";
 import withUser from "../withUser";
 import moment from "moment";
-import { Router } from "next/router";
+import Router from "next/router";
 
 const User = ({ userLinks, token, user }) => {
   const confirmDelete = (e, id) => {
