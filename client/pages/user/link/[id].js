@@ -219,7 +219,7 @@ const Update = ({token}) => {
 
 Update.getInitialProps =  async ({req, token, query}) => {
     const response = await axios.post(`${API}/category/${query.id}`);
-    return { oldLink: response.data.link, token};
+    return { oldLink: response.data, token}; // We get all data because we're editing current info
 }
 
 export default withUser(Update);

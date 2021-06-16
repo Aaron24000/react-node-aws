@@ -34,7 +34,15 @@ exports.list = (req, res) => {
 }
 
 exports.read = (req, res) => {
-    //
+    const {id} = req.params;
+    Link.findOne({_id: id}).exec((err,data) => {
+        if (err) {
+            return res.status(400).json({
+                error: 'Error finding link'
+            });
+        }
+        res.json(data);
+    })
 }
 
 exports.update = (req, res) => {
