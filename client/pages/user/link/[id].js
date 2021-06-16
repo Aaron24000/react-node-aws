@@ -217,7 +217,7 @@ const Update = ({token}) => {
     );
 };
 
-Update.getInitialProps = ({req, token, query}) => {
+Update.getInitialProps =  async ({req, token, query}) => {
     const response = await axios.post(`${API}/category/${query.id}`);
     return { oldLink: response.data.link, token};
 }
