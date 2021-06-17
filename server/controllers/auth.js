@@ -238,7 +238,7 @@ exports.canUpdateDeleteLink = (req, res, next) => {
         error: 'Could not find link'
       })
     }
-    let authorizedUser = data.postedBy._id.toString === req.user._id.toString(); // can also use req.profile._id
+    let authorizedUser = data.postedBy._id.toString() === req.user._id.toString(); // can also use req.profile._id
     if (!authorizedUser) {
       return res.status(400).json({
         error: 'You are not authorized'
