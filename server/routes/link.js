@@ -15,7 +15,9 @@ router.post('/links', requireSignin, adminMiddleware, list);
 router.put('/click-count', clickCount);
 router.get('/link/:id', read);
 router.put('/link/:id', linkUpdateValidator, runValidation, requireSignin, authMiddleware, update);
+router.put('/link/admin/:id', linkUpdateValidator, runValidation, requireSignin, adminMiddleware, update);
 router.delete('/link/:id', requireSignin, authMiddleware, remove);
+router.delete('/link/admin/:id', requireSignin, adminMiddleware, remove);
 
 module.exports = router;
 
