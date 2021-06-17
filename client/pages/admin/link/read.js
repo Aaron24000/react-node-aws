@@ -87,7 +87,7 @@ const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
 
     const response = await axios.post(
       `${API}/links`,
-      { skip, limit },
+      { skip: toSkip, limit },
       {
         headers: {
           Authorization: `Bearer ${token}`,
