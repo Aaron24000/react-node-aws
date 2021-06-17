@@ -232,7 +232,7 @@ exports.resetPassword = (req, res) => {
 
 exports.canUpdateDeleteLink = (req, res, next) => {
   const {id} = req.params;
-  Link.find({_id: id}).exec((err, data) => {
+  Link.findOne({_id: id}).exec((err, data) => {
     if (err) {
       return res.status(400).json({
         error: 'Could not find link'
