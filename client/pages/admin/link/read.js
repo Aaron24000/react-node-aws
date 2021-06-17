@@ -67,7 +67,7 @@ const Links = ({ token, links, totalLinks, linksLimit, linkSkip }) => {
               {c.name}
             </span>
           ))}
-          <Link href={`/admin/link/${l._id}`}>
+          <Link href={`/user/link/${l._id}`}>
             <a>
               <span className="badge text-warning pull-right">Update</span>
             </a>
